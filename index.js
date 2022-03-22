@@ -2,6 +2,7 @@
  
 const http = require('http');
 const path = require('path');
+const cors = require('cors');
 const express = require('express');
 const morgan = require('morgan');
 const exphbs = require('express-handlebars');
@@ -34,7 +35,7 @@ const authorRouter = require('./routes/author')
 // const home = require('./resources/views');
 
 // db.connect();
-
+app.use(cors());
 
 app.use(express.static(path.join(__dirname, 'public')));
 // app.use(express.urlencoded());
@@ -89,7 +90,7 @@ app.use((err, req, res, next) => {
 //   }));
 
 // })
-const port = app.get('port') || 3000;
+const port = app.get('port') || 4000;
 
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`);

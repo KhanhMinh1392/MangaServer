@@ -13,9 +13,9 @@ router.post("/themuser",validateBody(schemas.userSchema),UserController.CreatUse
 
 //sign in , sign up
 
-router.post('/signin',validateBody(schemas.SingninSchema),UserController.Signin);
+router.post('/signIn',validateBody(schemas.SingninSchema),UserController.Signin);
 
-router.post('/signup',validateBody(schemas.SignupSchema),UserController.Signup);
+router.post('/signUp',validateBody(schemas.SignupSchema),UserController.Signup);
 
 //  router.post("/login",UserController.Loginuser);
 
