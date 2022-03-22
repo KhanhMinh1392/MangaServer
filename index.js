@@ -1,5 +1,5 @@
  
- 
+ const cookieParser = require('cookie-parser')
 const http = require('http');
 const path = require('path');
 const cors = require('cors');
@@ -24,6 +24,7 @@ const userRouter = require('./routes/user')
 const cateRouter = require('./routes/category')
 const comicRouter = require('./routes/comic')
 const authorRouter = require('./routes/author')
+const tokenRouter = require('./routes/token')
 
 // const  COURSES = [
 //   { id:1, name :'NODE JS'},
@@ -44,6 +45,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 // }));
 
 app.use(morgan('combined'));
+app.use(cookieParser())
 
 
 
@@ -57,6 +59,7 @@ app.use('/users', userRouter)
 app.use('/cate', cateRouter)
 app.use('/comic', comicRouter)
 app.use('/author', authorRouter)
+app.use('/token', tokenRouter)
 
 
 app.use((req, res, next) => {
@@ -90,7 +93,7 @@ app.use((err, req, res, next) => {
 //   }));
 
 // })
-const port = app.get('port') || 4000;
+const port = app.get('port') || 3000;
 
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`);
