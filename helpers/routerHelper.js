@@ -90,6 +90,10 @@ const schemas={
         year: Joi.string().min(3),
         name_author: Joi.string().min(3),
         
+    }),
+    categorySchema:Joi.object().keys({
+        name_cate :Joi.string().min(2).required(),
+        comic_type : Joi.string().regex(/^[0-9a-fA-F]{24}$/).required()
     })
 }
 

@@ -34,33 +34,22 @@ const index = async (req,res,next)=>{
      }
  }
 
-//  const index = async (req,res,next)=>{
-//     try {
-//      const users = await User.find({})
-//      return res.json({users})
-        
-//     } catch (error) {
-//         next(error)
-        
-//     }
-//  }
+
 
  const CreateCate = async(req,res,next)=>{
-    // const {comicID} = req.params
+    const comic_type = await Comic.findById(req.value.body.comic_type)
 
-    //  const newCate = new Category(req.body)
+    const category = req.value.body
+    delete category.comic_type
 
-    //  const comic = await Comic.findById(comicID)
+    category.comic_type = comic_type._id
+    const newCate = new Category(category)
+    await newCate.save()
+    comic_type.categories.push(newCate._id)
+    await comic_type.save()
 
-    //  newCate.comic_type = comic
+    return res.status(201).json({category:newCate})
 
-    //  await newCate.save()
-
-    //  comic.categories.push(newCate._id)
-
-    //  await comic.save()
-
-    //  res.json({category: newCate})
 
  }
 
