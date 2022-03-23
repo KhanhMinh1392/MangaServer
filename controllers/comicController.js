@@ -56,7 +56,12 @@ const index = async (req,res,next)=>{
      try {
          const createComic = new Comic(req.value.body)
          await createComic.save()
-         return res.json({comic : createComic})
+         return res.json({
+             http_status: "OK",
+             http_code: 200,
+             http_message: "Success",
+             comic : createComic
+            })
          
      } catch (error) {
         next (error)

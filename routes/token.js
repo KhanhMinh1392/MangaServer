@@ -5,6 +5,6 @@ const tokenController = require('../controllers/tokenController')
 const {validateBody,validateParam,schemas}=require('../helpers/routerHelper')
 
 router.post('/signIn',validateBody(schemas.SingninSchema),tokenController.signin);
-router.post('/refesh',tokenController.requestRefreshToken)
+router.post('/refresh',tokenController.requestRefreshToken)
 
 module.exports=router

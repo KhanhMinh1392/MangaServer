@@ -82,6 +82,7 @@ const replaceUser = async (req, res, next) => {
 const Signin = async (req, res, next) => {
   const { email, password } = req.value.body;
   const login = await User.findOne({ email, password });
+
   if (login) {
     var token = JWT.sign(
       {
@@ -91,15 +92,15 @@ const Signin = async (req, res, next) => {
       { expiresIn: "2h" }
     );
     res.status(200).json({
-      Http_status: "OK",
-      Http_code: 200,
+      http_status: "OK",
+      http_code: 200,
       message: "Đăng nhập thành công",
       token: token,
     });
   } else {
-    res.status(200).json({
-      Http_status: "OK",
-      Http_code: 403,
+    res.status(403).json({
+      http_status: "OK",
+      http_code: 403,
       message: "Đăng nhập thất bại",
     });
   }
