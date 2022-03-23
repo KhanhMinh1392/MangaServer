@@ -7,9 +7,9 @@ const {validateBody,validateParam,schemas}=require('../helpers/routerHelper')
 // const passConfig = require('../middlewares/passport')
 
 // router.route('/')
-router.get("/layuser",middleware.verifyToken,UserController.index);
+router.get("/getUser",middleware.verifyToken,UserController.index);
 
-router.post("/themuser",validateBody(schemas.userSchema),UserController.CreatUser);
+router.post("/addUser",validateBody(schemas.userSchema),UserController.CreatUser);
 
 //sign in , sign up
 

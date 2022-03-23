@@ -95,7 +95,7 @@ app.use((err, req, res, next) => {
 //   }));
 
 // })
-const port = app.get('port') || 3000;
+const port = app.get('port') || 4000;
 
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`);

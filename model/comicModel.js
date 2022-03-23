@@ -23,6 +23,9 @@ const ComicSchema= new Schema({
     name_author:{
         type:String
     },
+    translateBy: {
+        type:String
+    },
     categories:[{
         type: Schema.Types.ObjectId,
         ref:"Category"
