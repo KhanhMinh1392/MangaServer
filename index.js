@@ -25,6 +25,7 @@ const cateRouter = require('./routes/category')
 const comicRouter = require('./routes/comic')
 const authorRouter = require('./routes/author')
 const tokenRouter = require('./routes/token')
+const chapterRouter = require('./routes/chapter')
 
 // const  COURSES = [
 //   { id:1, name :'NODE JS'},
@@ -60,6 +61,7 @@ app.use('/cate', cateRouter)
 app.use('/comic', comicRouter)
 app.use('/author', authorRouter)
 app.use('/token', tokenRouter)
+app.use('/chapter',chapterRouter)
 
 
 app.use((req, res, next) => {

@@ -79,31 +79,31 @@ const replaceUser = async (req, res, next) => {
   return res.json({ success: true });
 };
 
-const Signin = async (req, res, next) => {
-  const { email, password } = req.value.body;
-  const login = await User.findOne({ email, password });
-  if (login) {
-    var token = JWT.sign(
-      {
-        _id: login._id,
-      },
-      "ApiManga",
-      { expiresIn: "2h" }
-    );
-    res.status(200).json({
-      Http_status: "OK",
-      Http_code: 200,
-      message: "Đăng nhập thành công",
-      token: token,
-    });
-  } else {
-    res.status(200).json({
-      Http_status: "OK",
-      Http_code: 403,
-      message: "Đăng nhập thất bại",
-    });
-  }
-};
+// const Signin = async (req, res, next) => {
+//   const { email, password } = req.value.body;
+//   const login = await User.findOne({ email, password });
+//   if (login) {
+//     var token = JWT.sign(
+//       {
+//         _id: login._id,
+//       },
+//       "ApiManga",
+//       { expiresIn: "2h" }
+//     );
+//     return res.status(200).json({
+//       Http_status: "OK",
+//       Http_code: 200,
+//       message: "Đăng nhập thành công",
+//       token: token,
+//     });
+//   } else {
+//     return res.status(200).json({
+//       Http_status: "OK",
+//       Http_code: 403,
+//       message: "Đăng nhập thất bại",
+//     });
+//   }
+// };
 
 const Signup = async (req, res, next) => {
   const { name, email, phone, password } = req.value.body;
@@ -150,7 +150,7 @@ module.exports = {
   index,
   CreatUser,
   replaceUser,
-  Signin,
+  // Signin,
   Signup,
   updateUser,
   deleteUser,

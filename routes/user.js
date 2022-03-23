@@ -13,7 +13,7 @@ router.post("/themuser",validateBody(schemas.userSchema),UserController.CreatUse
 
 //sign in , sign up
 
-router.post('/signIn',validateBody(schemas.SingninSchema),UserController.Signin);
+// router.post('/signIn',validateBody(schemas.SingninSchema),UserController.Signin);
 
 router.post('/signUp',validateBody(schemas.SignupSchema),UserController.Signup);
 

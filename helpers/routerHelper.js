@@ -94,6 +94,10 @@ const schemas={
     categorySchema:Joi.object().keys({
         name_cate :Joi.string().min(2).required(),
         comic_type : Joi.string().regex(/^[0-9a-fA-F]{24}$/).required()
+    }),
+    chapterSchema:Joi.object().keys({
+        name_chapter:Joi.string().min(2).required(),
+        id_comic:Joi.string().regex(/^[0-9a-fA-F]{24}$/).required()
     })
 }
 
