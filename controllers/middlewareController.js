@@ -15,14 +15,14 @@ const middleware = {
             const accestoken = token.split(" ")[1];
             JWT.verify(accestoken,"ApiManga",(err,user)=>{
                 if(err){
-                    res.status(403).json("Token is not valid")
+                   return res.status(403).json("Token is not valid")
                 }
                 req.user = user;
                 next();
             })
         }
         else{
-            res.status(401).json("Not authenticated")
+            return res.status(401).json("Not authenticated")
         }
     }
 }
