@@ -97,6 +97,15 @@ const schemas={
     chapterSchema:Joi.object().keys({
         name_chapter:Joi.string().min(2).required(),
         id_comic:Joi.string().regex(/^[0-9a-fA-F]{24}$/).required()
+    }),
+    imgcomicSchema:Joi.object().keys({
+        image:Joi.array().min(2).required(),
+        id_comic:Joi.string().regex(/^[0-9a-fA-F]{24}$/).required(),
+        id_chapter:Joi.string().regex(/^[0-9a-fA-F]{24}$/).required()
+    }),
+    imgcomicUpdateSchema:Joi.object().keys({
+        image:Joi.array().min(2),
+
     })
 }
 

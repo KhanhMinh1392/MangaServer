@@ -1,4 +1,5 @@
 const Chapter = require('../model/chapterModel')
+const Comic = require('../model/comicModel')
 const express = require('express')
 const Joi = require('@hapi/joi')
 const app = express();
