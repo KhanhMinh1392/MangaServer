@@ -26,6 +26,10 @@ const ComicSchema= new Schema({
     translateBy: {
         type:String
     },
+    views: {
+        type:Number,
+        default: 0
+    },
     categories:[{
         type: Schema.Types.ObjectId,
         ref:"Category"

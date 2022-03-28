@@ -8,7 +8,9 @@ const CategorySchema= new Schema({
     comic_type:{
         type:Schema.Types.ObjectId,
         ref:"Comic"
-
+    },
+    color:{
+        type: String
     }
 })
 

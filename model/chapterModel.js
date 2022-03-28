@@ -9,9 +9,9 @@ const ChapterSchema= new Schema({
         type : Number,
         default:0
     },
-    id_comic:[{
+    id_comic:{
         type: Schema.Types.ObjectId,
-    }],
+    },
     
 },
 {timestamps:true}
