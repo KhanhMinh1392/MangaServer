@@ -22,7 +22,7 @@ const index = async (req,res,next)=>{
      try {
          const name_cate = req.query.name_cate;
          const category = await Category.findOne({'id':name_cate});
-         res.json({
+         return res.json({
              error:false,
              message:"",
              category
@@ -45,6 +45,7 @@ const index = async (req,res,next)=>{
     category.comic_type = comic_type._id
     const newCate = new Category(category)
     await newCate.save()
+    
     comic_type.categories.push(newCate._id)
     await comic_type.save()
 

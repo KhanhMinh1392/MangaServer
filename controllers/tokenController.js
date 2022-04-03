@@ -6,10 +6,10 @@ const Joi = require('@hapi/joi')
 const JWT = require('jsonwebtoken')
 const { findById } = require('../model/userModel')
 const { token } = require('morgan')
-let refeshTokens = [];
+let refreshTokens = [];
 
 const tokenController = {
-    generateAccesToken:(login)=>{
+    generateAccessToken:(login)=>{
         return JWT.sign({
             _id: login._id
         }, "ApiManga",
@@ -20,7 +20,7 @@ const tokenController = {
     generateRefreshToken:(login)=>{
         return JWT.sign({
             _id: login._id
-        }, "RefeshTokenAPI",
+        }, "RefreshTokenAPI",
             { expiresIn: "365d" }
         );
     },
@@ -30,10 +30,10 @@ const tokenController = {
         const { email, password } = req.value.body
         const login = await User.findOne({ email, password })
         if (login) {
-            const token = tokenController.generateAccesToken(login)
-            const refeshToken = tokenController.generateRefreshToken(login)
-            refeshTokens.push(refeshToken)
-            res.cookie("refeshToken",refeshToken,{
+            const token = tokenController.generateAccessToken(login)
+            const refreshToken = tokenController.generateRefreshToken(login)
+            refreshTokens.push(refreshToken)
+            res.cookie("refreshToken",refreshToken,{
                 httpOnly:true,
                 secure:false,
                 path:"/",
@@ -49,7 +49,7 @@ const tokenController = {
         }
         else {
            return res.status(200).json({
-                Http_status: "OK",
+                Http_status: "Error",
                 Http_code: 403,
                 message: "Đăng nhập thất bại",
 
@@ -61,16 +61,16 @@ const tokenController = {
         const refreshToken = req.cookies.refeshToken
         if(!refreshToken) return res.status(403).json("You're not authenticate");
         if(!refeshTokens.includes(refreshToken)){
-            return res.status(403).json("Refesh token is not valid")
+            return res.status(403).json("Refresh token is not valid")
         }
-        JWT.verify(refreshToken,"RefeshTokenAPI",(err,login)=>{
+        JWT.verify(refreshToken,"RefreshTokenAPI",(err,login)=>{
             if(err){
                 console.log(err);
             }
-            refeshTokens = refeshTokens.filter((token)=>token!== refreshToken)
-            const newAccesToken = tokenController.generateAccesToken(login)
+            refreshTokens = refeshTokens.filter((token)=>token!== refreshToken)
+            const newAccesToken = tokenController.generateAccessToken(login)
             const newRefreshToken = tokenController.generateRefreshToken(login)
-            refeshTokens.push(newRefreshToken)
+            refreshTokens.push(newRefreshToken)
             res.cookie("refeshToken",newRefreshToken,{
                 httpOnly:true,
                 secure:false,

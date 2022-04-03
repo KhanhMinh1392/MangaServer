@@ -112,7 +112,7 @@ const Signup = async (req, res, next) => {
 
   if (foundUser)
     return res.status(403).json({
-      Http_status: "OK",
+      Http_status: "Error",
       Http_code: 403,
       message: "Email đã tồn tại",
     });
