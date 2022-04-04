@@ -14,11 +14,20 @@ const index = async (req,res,next)=>{
     }
  }
 
+
+
  const Createlibrary = async(req,res,next)=>{
     try {
-        // const { name, email, phone, password } = req.value.body;
-        const createLibrary = new Library(req.value.body)
-        await createLibrary.save()
+        const { id_user,id_comic } = req.value.body;
+        const check = await Library.findOne({id_user})
+        if(check)
+        return res.status(403).json({
+            Http_status: "Error",
+            Http_code: 403,
+            message: "User đã tồn tại",
+          });
+        const createLibrary = new Library({id_user, id_comic});
+        createLibrary.save()
         return res.json({
             http_status: "OK",
             http_code: 200,
