@@ -23,8 +23,9 @@ const index = async (req,res,next)=>{
          const name_cate = req.query.name_cate;
          const category = await Category.findOne({'id':name_cate});
          return res.json({
-             error:false,
-             message:"",
+             http_code: 200,
+             error:"OK",
+             message:"Success",
              category
          })
          

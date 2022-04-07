@@ -63,7 +63,7 @@ const schemas={
         name:Joi.string().min(2).required(),
         email: Joi.string().email().required(),
         phone:Joi.string().min(2).required(),
-        password: Joi.string().min(3).required()
+        password: Joi.string().min(3).required(),
     }),
     userUpdateSchema: Joi.object().keys({
         name:Joi.string().min(2),

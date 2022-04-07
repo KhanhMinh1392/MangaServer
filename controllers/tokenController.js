@@ -43,7 +43,9 @@ const tokenController = {
                 Http_status: "OK",
                 Http_code: 200,
                 message: "Đăng nhập thành công",
+                id_user: login._id,
                 token: token
+                
                 // refeshToken: refeshToken
             });
         }
@@ -68,7 +70,7 @@ const tokenController = {
                 console.log(err);
             }
             refreshTokens = refeshTokens.filter((token)=>token!== refreshToken)
-            const newAccesToken = tokenController.generateAccessToken(login)
+            const newAccessToken = tokenController.generateAccessToken(login)
             const newRefreshToken = tokenController.generateRefreshToken(login)
             refreshTokens.push(newRefreshToken)
             res.cookie("refeshToken",newRefreshToken,{
@@ -77,7 +79,7 @@ const tokenController = {
                 path:"/",
                 samesite:"strict"
             });
-            res.status(200).json({accestoken: newAccesToken})
+            res.status(200).json({accestoken: newAccessToken})
         })
     }
 

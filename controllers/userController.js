@@ -43,7 +43,7 @@ const index = async (req, res, next) => {
 const CreatUser = async (req, res, next) => {
   try {
     const createUser = new User(req.value.body);
-
+    
     await createUser.save();
 
     return res.json({ user: createUser });

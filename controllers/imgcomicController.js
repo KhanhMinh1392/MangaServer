@@ -21,6 +21,19 @@ const index = async (req,res,next)=>{
  const CreateimgComic = async(req,res,next)=>{
     try {
         const createimgComic = new ImgComic(req.value.body)
+        //const check = db.findById(createimgComic.id_chapter)
+        // if(check)
+        // { 
+        //     let newarr = createimgComic.image; //new arr
+
+        //     let oldarr = ................; // old arr
+        //     const oldandanew =oldarr.concat(newarr)
+        //     return arr
+        //     //code
+        //     push// concat
+        // }
+        //     else {
+        //     }
         await createimgComic.save()
         return res.json({
             http_status: "OK",
