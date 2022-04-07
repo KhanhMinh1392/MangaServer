@@ -105,8 +105,15 @@ const schemas={
     }),
     imgcomicUpdateSchema:Joi.object().keys({
         image:Joi.array().min(2),
-
+    }),
+    getChapterID:Joi.object().keys({
+        id_chapter:Joi.string().regex(/^[0-9a-fA-F]{24}$/).required()
+    }),
+    librarySchema:Joi.object().keys({
+        id_user:Joi.string().regex(/^[0-9a-fA-F]{24}$/).required(),
+        id_comic:Joi.array().min(2).required()
     })
+    
 }
 
 module.exports={
