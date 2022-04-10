@@ -1,10 +1,10 @@
 const express = require('express')
 const router = express.Router()
-const libraryContronller = require('../controllers/libraryContronller')
+const libraryController = require('../controllers/libraryController')
 const {validateBody,validateParam,schemas}=require('../helpers/routerHelper')
 
-router.get("/alllibrary",libraryContronller.index);
+router.get("/allLibrary",libraryController.index);
 
-router.post("/createlibrary",validateBody(schemas.librarySchema),libraryContronller.Createlibrary);
+router.post("/addComicLib",validateBody(schemas.librarySchema),libraryController.createLibrary);
 
 module.exports = router

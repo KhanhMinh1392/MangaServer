@@ -4,7 +4,6 @@ const Schema = mongoose.Schema
 const imgComicSchema= new Schema({
     image :[{
         type:String
- 
     }],
     id_comic:{
         type: Schema.Types.ObjectId,

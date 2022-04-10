@@ -73,7 +73,7 @@ const tokenController = {
             const newAccessToken = tokenController.generateAccessToken(login)
             const newRefreshToken = tokenController.generateRefreshToken(login)
             refreshTokens.push(newRefreshToken)
-            res.cookie("refeshToken",newRefreshToken,{
+            res.cookie("refreshToken",newRefreshToken,{
                 httpOnly:true,
                 secure:false,
                 path:"/",

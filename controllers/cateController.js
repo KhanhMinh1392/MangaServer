@@ -38,8 +38,9 @@ const getName = async (req, res, next) => {
         const name_cate = req.query.search;
         const category = await Category.find({ 'name_cate': name_cate });
         return res.json({
-            error: false,
-            message: "",
+            http_code: 200,
+            http_status: "OK",
+            message: "Success",
             category
         })
 
@@ -54,9 +55,9 @@ const getName = async (req, res, next) => {
          const name_cate = req.query.name_cate;
          const category = await Category.findOne({'id':name_cate});
          return res.json({
+             http_status:"OK",
              http_code: 200,
-             error:"OK",
-             message:"Success",
+             http_message:"Success",
              category
          })
          
