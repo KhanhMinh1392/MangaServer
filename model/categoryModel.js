@@ -5,10 +5,10 @@ const CategorySchema= new Schema({
     name_cate:{
         type: String
     },
-    comic_type:{
+    comic_type:[{
         type:Schema.Types.ObjectId,
         ref:"Comic"
-    },
+    }],
     color:{
         type: String
     }

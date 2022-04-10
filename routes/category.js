@@ -7,6 +7,7 @@ router.get("/getGenres",CateController.index)
 router.get("/findcate",CateController.getName);
 router.post("/addGenres",validateBody(schemas.categorySchema),CateController.CreateCate)
 router.get("/:cateID",CateController.getCateId)
+router.patch("/Genres/:genresID",validateParam(schemas.idSchema,'genresID'),validateBody(schemas.updatecatecomicSchema),CateController.updateCatecomic);
 
 
 

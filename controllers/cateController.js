@@ -36,7 +36,7 @@ const getCateId = async (req, res, next) => {
 const getName = async (req, res, next) => {
     try {
         const name_cate = req.query.search;
-        const category = await Category.find({ 'name_cate': name_cate });
+        const category = await Category.findOne({ 'name_cate': name_cate }).populate('comic_type','name_comic image');
         return res.json({
             error: false,
             message: "",
@@ -66,21 +66,20 @@ const CreateCate = async (req, res, next) => {
     await comic_type.save()
 
     return res.status(201).json({ category: newCate })
-
-
 }
 
-
-
-
-
-
-
+const updateCatecomic = async (req, res, next) => {
+    const { genresID } = req.value.params
+    const newCate = req.value.body
+    const result = await Category.findByIdAndUpdate(genresID, newCate)
+    return res.json({ success: true })
+}
 
 module.exports = {
     index,
     getCateId,
     getName,
-    CreateCate
+    CreateCate,
+    updateCatecomic
 
 }

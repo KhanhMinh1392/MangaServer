@@ -1,24 +1,26 @@
 const Library = require('../model/libraryModel')
+const Manga = require('../model/libraryModel')
 const express = require('express')
 const Joi = require('@hapi/joi')
 const app = express();
 
-const index = async (req,res,next)=>{
+const index = async (req, res, next) => {
     try {
-     const comics = await Library.find({})
-     return res.json({comics})
-        
+        const data = await Library.find({}).populate('comic','_id name_comic image ')
+        return res.json({ data })
+
     } catch (error) {
         next(error)
-        
+
     }
- }
+}
 
 
 
- const Createlibrary = async(req,res,next)=>{
+const createLibrary = async (req, res, next) => {
+    
     try {
-        const { id_user,id_comic } = req.value.body;
+        const { id_user,comic } = req.value.body;
         const check = await Library.findOne({id_user})
         if(check)
         return res.status(403).json({
@@ -26,7 +28,7 @@ const index = async (req,res,next)=>{
             Http_code: 403,
             message: "User đã tồn tại",
           });
-        const createLibrary = new Library({id_user, id_comic});
+        const createLibrary = new Library({id_user, comic});
         createLibrary.save()
         return res.json({
             http_status: "OK",
@@ -34,14 +36,22 @@ const index = async (req,res,next)=>{
             http_message: "Success",
             library: createLibrary
            })
-        
+
     } catch (error) {
        next (error)
-        
+
     }
 }
+const updateLibrary = async(req,res,next)=>{
+    const {libraryID} = req.value.params
+    const newLibrary = req.value.body
+    const result = await Library.findByIdAndUpdate(libraryID,newLibrary)
+    return res.json({success: true})
 
- module.exports = {
-     index,
-     Createlibrary
- }
+}
+
+module.exports = {
+    index,
+    createLibrary,
+    updateLibrary
+}

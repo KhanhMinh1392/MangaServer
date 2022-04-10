@@ -5,6 +5,8 @@ const {validateBody,validateParam,schemas}=require('../helpers/routerHelper')
 
 router.get("/alllibrary",libraryContronller.index);
 
-router.post("/createlibrary",validateBody(schemas.librarySchema),libraryContronller.Createlibrary);
+router.post("/addlibrary",validateBody(schemas.librarySchema),libraryContronller.createLibrary);
+
+router.patch("/updatelibrary/:libraryID",validateParam(schemas.idSchema,'libraryID'),validateBody(schemas.updatelibrarySchema),libraryContronller.updateLibrary);
 
 module.exports = router

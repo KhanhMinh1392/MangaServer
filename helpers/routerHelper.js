@@ -86,13 +86,18 @@ const schemas={
         status: Joi.string().email(),
         image:Joi.string().min(2),
         year: Joi.string().min(3),
-        name_author: Joi.string().min(3),
-        
+        name_author: Joi.string().min(3), 
     }),
     categorySchema:Joi.object().keys({
         name_cate :Joi.string().min(2).required(),
-        comic_type : Joi.string().regex(/^[0-9a-fA-F]{24}$/).required(),
+        comic_type : Joi.array().min(2).required(),
         color :Joi.string().min(2).required()
+    }),
+    updatecatecomicSchema: Joi.object().keys({
+        name_cate :Joi.string().min(2),
+        comic_type : Joi.array().min(2),
+        color :Joi.string().min(2)
+
     }),
     chapterSchema:Joi.object().keys({
         name_chapter:Joi.string().min(2).required(),
@@ -111,7 +116,11 @@ const schemas={
     }),
     librarySchema:Joi.object().keys({
         id_user:Joi.string().regex(/^[0-9a-fA-F]{24}$/).required(),
-        id_comic:Joi.array().min(2).required()
+        comic:Joi.array().min(2).required()
+    }),
+    updatelibrarySchema:Joi.object().keys({
+        id_user:Joi.string().regex(/^[0-9a-fA-F]{24}$/),
+        comic:Joi.array().min(2)
     })
     
 }
