@@ -12,8 +12,8 @@ const middleware = {
         const token = req.headers.token;
        
         if(token){
-            const accestoken = token.split(" ")[1];
-            JWT.verify(accestoken,"ApiManga",(err,user)=>{
+            const accessToken = token.split(" ")[1];
+            JWT.verify(accessToken,"ApiManga",(err,user)=>{
                 if(err){
                    return res.status(403).json("Token is not valid")
                 }
