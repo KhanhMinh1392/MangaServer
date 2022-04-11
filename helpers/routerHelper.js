@@ -116,11 +116,11 @@ const schemas={
     }),
     librarySchema:Joi.object().keys({
         id_user:Joi.string().regex(/^[0-9a-fA-F]{24}$/).required(),
-        comic:Joi.array().min(2).required()
+        comic:Joi.array().min(1).required()
     }),
-    updatelibrarySchema:Joi.object().keys({
+    updateLibrarySchema:Joi.object().keys({
         id_user:Joi.string().regex(/^[0-9a-fA-F]{24}$/),
-        comic:Joi.array().min(2)
+        comic:Joi.array().min(1)
     })
     
 }

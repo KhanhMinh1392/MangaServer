@@ -5,12 +5,15 @@ const app = express();
 
 const index = async (req, res, next) => {
   try {
-    const comics = await Library.find({});
+    const data = await Library.find({}).populate(
+      "comic",
+      "_id name_comic image name_author"
+    );
     return res.json({
       http_status: "OK",
       http_code: 200,
       http_message: "Success",
-      comics,
+      data,
     });
   } catch (error) {
     next(error);
@@ -19,7 +22,7 @@ const index = async (req, res, next) => {
 
 const createLibrary = async (req, res, next) => {
   try {
-    const { id_user, id_comic } = req.value.body;
+    const { id_user, comic } = req.value.body;
     const check = await Library.findOne({ id_user });
     if (check)
       return res.status(403).json({
@@ -27,7 +30,7 @@ const createLibrary = async (req, res, next) => {
         Http_code: 403,
         message: "User đã tồn tại",
       });
-    const createLibrary = new Library({ id_user, id_comic });
+    const createLibrary = new Library({ id_user, comic });
     createLibrary.save();
     return res.json({
       http_status: "OK",
@@ -39,8 +42,23 @@ const createLibrary = async (req, res, next) => {
     next(error);
   }
 };
+const updateLibrary = async (req, res, next) => {
+  const { libraryID } = req.value.params;
+  const newLibrary = req.value.body;
+
+  const result = await Library.findByIdAndUpdate(
+    libraryID,
+    { $push: newLibrary },
+    {
+      new: true,
+      useFindAndModify: false,
+    }
+  );
+  return res.json({ success: true });
+};
 
 module.exports = {
   index,
   createLibrary,
+  updateLibrary,
 };
