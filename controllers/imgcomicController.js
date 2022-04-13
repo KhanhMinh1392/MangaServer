@@ -10,14 +10,14 @@ const idSchema = Joi.object().keys({
 })
 
 const getIDimg = async (req, res, next) => {
-    
-        // const search = req.params.search;
-        // const idchater = await ImgComic.findOne({ search })
-        // return res.json({ data: idchater })
-        // const { id_chapter } = req.value.body
-        // let params =[];
-        // params.keyword = req.query.keyword
-        // const keyword = req.headers.keyword
+
+    // const search = req.params.search;
+    // const idchater = await ImgComic.findOne({ search })
+    // return res.json({ data: idchater })
+    // const { id_chapter } = req.value.body
+    // let params =[];
+    // params.keyword = req.query.keyword
+    // const keyword = req.headers.keyword
 
 }
 
@@ -67,7 +67,14 @@ const CreateimgComic = async (req, res, next) => {
 const UpdateimgComic = async (req, res, next) => {
     const { imgcomicID } = req.value.params
     const newimgComic = req.value.body
-    const result = await ImgComic.findByIdAndUpdate(imgcomicID, newimgComic)
+    const result = await ImgComic.findByIdAndUpdate(
+        imgcomicID,
+        { $push: newimgComic },
+    {
+      new: true,
+      useFindAndModify: false,
+    }
+    );
     return res.json({ success: true })
 }
 

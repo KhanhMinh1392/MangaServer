@@ -9,4 +9,8 @@ router.post("/addComicLib",validateBody(schemas.librarySchema),libraryController
 
 router.patch("/updateLibrary/:libraryID",validateParam(schemas.idSchema,'libraryID'),validateBody(schemas.updateLibrarySchema),libraryController.updateLibrary);
 
+router.delete("/removeLib/:libraryID",validateParam(schemas.idSchema,'libraryID'),libraryController.deleteLibrary)
+
+router.delete("/removeComicLib/:libraryID&:comicId",libraryController.deteleComicLib)
+
 module.exports = router 
