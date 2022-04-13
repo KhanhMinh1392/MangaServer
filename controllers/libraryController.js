@@ -54,7 +54,12 @@ const updateLibrary = async (req, res, next) => {
       useFindAndModify: false,
     }
   );
-  return res.json({ success: true });
+  return res.json({
+    http_status: "OK",
+    http_code: 200,
+    http_message: "Success",
+    result
+  });
 };
 
 module.exports = {
