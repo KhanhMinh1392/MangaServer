@@ -80,6 +80,7 @@ const schemas={
         year:Joi.string().min(2).required(),
         name_author:Joi.string().min(2).required(),
         translateBy:Joi.string().min(2).required(),
+        categories:Joi.array().min(1).required()
     }),
     comicUpdateSchema: Joi.object().keys({
         name_comic:Joi.string().min(2),
@@ -90,12 +91,12 @@ const schemas={
     }),
     categorySchema:Joi.object().keys({
         name_cate :Joi.string().min(2).required(),
-        comic_type : Joi.array().min(2).required(),
+        comic_type : Joi.array().min(1).required(),
         color :Joi.string().min(2).required()
     }),
     updatecatecomicSchema: Joi.object().keys({
         name_cate :Joi.string().min(2),
-        comic_type : Joi.array().min(2),
+        comic_type : Joi.array().min(1),
         color :Joi.string().min(2)
 
     }),
@@ -109,7 +110,7 @@ const schemas={
         id_chapter:Joi.string().regex(/^[0-9a-fA-F]{24}$/).required()
     }),
     imgcomicUpdateSchema:Joi.object().keys({
-        image:Joi.array().min(2),
+        image:Joi.array().min(1),
     }),
     getChapterID:Joi.object().keys({
         id_chapter:Joi.string().regex(/^[0-9a-fA-F]{24}$/).required()

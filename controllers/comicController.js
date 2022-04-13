@@ -20,15 +20,7 @@ const getcomicID = async(req,res,next)=>{
 
 }
 
-const getComicCate = async(req,res,next)=>{
-    
-    const {comicID} = req.value.params
 
-    const comic = await Comic.findById(comicID).populate('categories')
-    return res.status(201).json({categories: comic.categories})
-
-
-}
  
 const index = async (req,res,next)=>{
     try {
@@ -40,17 +32,6 @@ const index = async (req,res,next)=>{
         
     }
  }
-
-//  const index = async (req,res,next)=>{
-//     try {
-//      const users = await User.find({})
-//      return res.json({users})
-        
-//     } catch (error) {
-//         next(error)
-        
-//     }
-//  }
 
  const CreateComic = async(req,res,next)=>{
      try {
@@ -69,26 +50,7 @@ const index = async (req,res,next)=>{
      }
  }
 
- const CreateComicCate = async(req,res,next)=>{
-     const {comicID} = req.value.params
-
-     const newCate = new Category(req.body)
-
-     const comic = await Comic.findById(comicID)
-
-     newCate.comic_type = comic
-
-     await newCate.save()
-
-     comic.categories.push(newCate._id)
-
-     await comic.save()
-
-     res.json({category: newCate})
-
-
- }
-
+ 
  const replaceComic = async(req,res,next)=>{
     const {comicID} = req.params
     const newComic = req.body
@@ -109,10 +71,8 @@ const updateComic = async(req,res,next)=>{
 
  module.exports ={
      getcomicID,
-     getComicCate,
      index,
      CreateComic,
-     CreateComicCate,
      replaceComic,
      updateComic
  }

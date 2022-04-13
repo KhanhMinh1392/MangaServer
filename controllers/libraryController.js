@@ -62,8 +62,45 @@ const updateLibrary = async (req, res, next) => {
   });
 };
 
+const deleteLibrary = async (req,res,next)=>{
+  try {
+    const { libraryID } = req.value.params;
+    const user = await Library.findByIdAndDelete(libraryID);
+    return res.json({
+      http_status: "OK",
+      http_code: 200,
+      http_message: "Detele Successfully",
+    });
+  } catch (error) {
+    res.json(error);
+  }
+}
+
+const deteleComicLib = async(req, res, next)=>{
+  try {
+    const { libraryID,comicId } = req.params;
+
+
+    console.log(libraryID,comicId);
+
+    const check = await Library.updateMany({_id:libraryID},{$pull:{comic: comicId}})
+
+    return res.json({
+      http_status: "OK",
+      http_code: 200,
+      http_message: "Detele Successfully",
+    });
+  } catch (error) {
+    res.json(error);
+    
+  }
+
+}
+
 module.exports = {
   index,
   createLibrary,
   updateLibrary,
+  deleteLibrary,
+  deteleComicLib
 };
