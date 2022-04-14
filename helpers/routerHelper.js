@@ -12,6 +12,7 @@ const validateBody = (schema,name)=>{
             if(!req.value) req.value ={}
             
             if(!req.value['params']) req.value.params ={}
+            console.log(validatorResult);
 
            
             req.value.body = validatorResult.value

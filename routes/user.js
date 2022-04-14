@@ -7,7 +7,7 @@ const {validateBody,validateParam,schemas}=require('../helpers/routerHelper')
 // const passConfig = require('../middlewares/passport')
 
 // router.route('/')
-router.get("/getUser",UserController.index);
+router.get("/getUser",middleware.verifyToken,UserController.index);
 
 router.post("/addUser",validateBody(schemas.userSchema),UserController.CreatUser);
 

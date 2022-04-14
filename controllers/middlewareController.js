@@ -1,13 +1,7 @@
 const JWT = require('jsonwebtoken')
 
 const middleware = {
-    // const authorHeader= req.headers.authorHeader;
-    // const token= authorHeader.split(' ')[1];
-    // if(!token)  res.status(401).json("Not authenticated")
 
-    // JWT.verify(token,"ApiManga",(err,data)=>{
-
-    // })
     verifyToken:(req,res,next)=>{
         const token = req.headers.token;
        

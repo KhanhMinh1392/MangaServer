@@ -36,7 +36,6 @@ const tokenController = {
             res.cookie("refreshToken",refreshToken,{
                 httpOnly:true,
                 secure:false,
-                path:"/",
                 samesite:"strict"
             })
              return res.status(200).json({
@@ -60,23 +59,22 @@ const tokenController = {
 
     },
     requestRefreshToken: async(req,res)=>{
-        const refreshToken = req.cookies.refeshToken
+        const refreshToken = req.cookies.refreshToken
         if(!refreshToken) return res.status(403).json("You're not authenticate");
-        if(!refeshTokens.includes(refreshToken)){
+        if(!refreshTokens.includes(refreshToken)){
             return res.status(403).json("Refresh token is not valid")
         }
         JWT.verify(refreshToken,"RefreshTokenAPI",(err,login)=>{
             if(err){
                 console.log(err);
             }
-            refreshTokens = refeshTokens.filter((token)=>token!== refreshToken)
+            refreshTokens = refreshTokens.filter((token)=>token!== refreshToken)
             const newAccessToken = tokenController.generateAccessToken(login)
             const newRefreshToken = tokenController.generateRefreshToken(login)
             refreshTokens.push(newRefreshToken)
             res.cookie("refreshToken",newRefreshToken,{
                 httpOnly:true,
                 secure:false,
-                path:"/",
                 samesite:"strict"
             });
             res.status(200).json({accestoken: newAccessToken})
