@@ -15,9 +15,6 @@ const getcomicID = async(req,res,next)=>{
     const comic = await Comic.findById(comicID).populate("categories","name_cate color")
 
     return res.json({comic})
-
-   
-
 }
 
 
