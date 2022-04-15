@@ -66,6 +66,7 @@ const deleteLibrary = async (req,res,next)=>{
   try {
     const { libraryID } = req.value.params;
     const user = await Library.findByIdAndDelete(libraryID);
+    
     return res.json({
       http_status: "OK",
       http_code: 200,
@@ -76,19 +77,19 @@ const deleteLibrary = async (req,res,next)=>{
   }
 }
 
-const deteleComicLib = async(req, res, next)=>{
+const deleteComicLib = async(req, res, next)=>{
   try {
     const { libraryID,comicId } = req.params;
-
-
-    console.log(libraryID,comicId);
-
     const check = await Library.updateMany({_id:libraryID},{$pull:{comic: comicId}})
-
+    const data = await Library.find({}).populate(
+      "comic",
+      "_id name_comic image name_author"
+    );
     return res.json({
       http_status: "OK",
       http_code: 200,
       http_message: "Detele Successfully",
+      data: data
     });
   } catch (error) {
     res.json(error);
@@ -102,5 +103,5 @@ module.exports = {
   createLibrary,
   updateLibrary,
   deleteLibrary,
-  deteleComicLib
+  deleteComicLib
 };

@@ -12,7 +12,7 @@ const getcomicID = async(req,res,next)=>{
     const validator= idSchema.validate(req.params)
     const {comicID} = req.value.params
 
-    const comic = await Comic.findById(comicID)
+    const comic = await Comic.findById(comicID).populate("categories","name_cate color")
 
     return res.json({comic})
 
