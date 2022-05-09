@@ -1,5 +1,5 @@
 const express = require('express');
-const middleware = require('../controllers/middlewareController');
+const middleware = require('../helpers/verifyToken');
 const router = express.Router()
 const UserController = require('../controllers/userController')
 const {validateBody,validateParam,schemas}=require('../helpers/routerHelper')

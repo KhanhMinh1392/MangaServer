@@ -43,7 +43,7 @@ const index = async (req, res, next) => {
 const CreatUser = async (req, res, next) => {
   try {
     const createUser = new User(req.value.body);
-    
+
     await createUser.save();
 
     return res.json({ user: createUser });
@@ -79,31 +79,6 @@ const replaceUser = async (req, res, next) => {
   return res.json({ success: true });
 };
 
-// const Signin = async (req, res, next) => {
-//   const { email, password } = req.value.body;
-//   const login = await User.findOne({ email, password });
-//   if (login) {
-//     var token = JWT.sign(
-//       {
-//         _id: login._id,
-//       },
-//       "ApiManga",
-//       { expiresIn: "2h" }
-//     );
-//     return res.status(200).json({
-//       Http_status: "OK",
-//       Http_code: 200,
-//       message: "Đăng nhập thành công",
-//       token: token,
-//     });
-//   } else {
-//     return res.status(200).json({
-//       Http_status: "OK",
-//       Http_code: 403,
-//       message: "Đăng nhập thất bại",
-//     });
-//   }
-// };
 
 const Signup = async (req, res, next) => {
   const { name, email, phone, password } = req.value.body;
@@ -120,8 +95,6 @@ const Signup = async (req, res, next) => {
   const newUser = new User({ name, email, phone, password });
   console.log("new User", newUser);
   newUser.save();
-  //  const token = encodeToken(newUser._id)
-  //  res.setHeader('Autorization',token)
   return res.status(200).json({
     Http_status: "OK",
     Http_code: 200,
