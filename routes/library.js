@@ -11,6 +11,6 @@ router.patch("/updateLibrary/:libraryID",validateParam(schemas.idSchema,'library
 
 router.delete("/removeLib/:libraryID",validateParam(schemas.idSchema,'libraryID'),libraryController.deleteLibrary)
 
-router.delete("/removeComicLib/:libraryID&:comicId",libraryController.deteleComicLib)
+router.delete("/removeComicLib/:libraryID&:comicId",libraryController.deleteComicLib)
 
 module.exports = router 
