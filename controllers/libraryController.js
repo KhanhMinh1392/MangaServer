@@ -44,7 +44,8 @@ const createLibrary = async (req, res, next) => {
 };
 
 const updateLibrary = async (req, res, next) => {
-  const { libraryID } = req.value.params;
+  try {
+    const { libraryID } = req.value.params;
   const newLibrary = req.value.body;
 
   const result = await Library.findByIdAndUpdate(
@@ -61,6 +62,12 @@ const updateLibrary = async (req, res, next) => {
     http_message: "Success",
     result
   });
+    
+  } catch (error) {
+    console.error(error);
+    
+  }
+  
 };
 
 const deleteLibrary = async (req, res, next) => {
