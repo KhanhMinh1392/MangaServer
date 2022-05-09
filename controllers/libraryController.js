@@ -78,7 +78,7 @@ const deleteLibrary = async (req, res, next) => {
   }
 }
 
-<<<<<<< HEAD
+
 const deteleComicLib = async (req, res, next) => {
   try {
     const { libraryID, comicId } = req.params;
@@ -98,22 +98,8 @@ const deteleComicLib = async (req, res, next) => {
         http_message: "Detele Successfully",
       });
     }
-=======
-const deleteComicLib = async(req, res, next)=>{
-  try {
-    const { libraryID,comicId } = req.params;
-    const check = await Library.updateMany({_id:libraryID},{$pull:{comic: comicId}})
-    const data = await Library.find({}).populate(
-      "comic",
-      "_id name_comic image name_author"
-    );
-    return res.json({
-      http_status: "OK",
-      http_code: 200,
-      http_message: "Detele Successfully",
-      data: data
-    });
->>>>>>> ed35a23ab549558ec9862e48814eb7389cf58368
+
+
   } catch (error) {
     console.error(error)
     return res.json({
@@ -131,5 +117,5 @@ module.exports = {
   createLibrary,
   updateLibrary,
   deleteLibrary,
-  deleteComicLib
+  deteleComicLib
 };
