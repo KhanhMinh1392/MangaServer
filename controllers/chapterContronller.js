@@ -12,7 +12,8 @@ const getchapterID = async (req, res, next) => {
   const  {chapterID } = req.value.params
 
   const data = await Chapter.findById(chapterID)
-    return res.json({ data })
+  // Report.reportView(chapterID)
+  return res.json({ data })
 }
 
 const index = async (req, res, next) => {

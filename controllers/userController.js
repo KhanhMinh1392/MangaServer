@@ -6,15 +6,6 @@ const Joi = require("@hapi/joi");
 const JWT = require("jsonwebtoken");
 const { findById } = require("../model/userModel");
 
-// const encodeToken = (userID) =>{
-//     return JWT.sign({
-//         iss:'Van Sen',
-//         sub: userID,
-//         iat: new Date().getTime(),
-//         exp: new Date().setTime(new Date().getDate()+3)
-
-//     },JWT_SECRECT)
-// }
 const idSchema = Joi.object().keys({
   userID: Joi.string()
     .regex(/^[0-9a-fA-F]{24}$/)
@@ -23,12 +14,25 @@ const idSchema = Joi.object().keys({
 const app = express();
 
 const getID = async (req, res, next) => {
-  const validator = idSchema.validate(req.params);
-  console.log("result", validator);
-
+ 
   const { userID } = req.value.params;
-  const user = await User.findById(userID);
-  return res.json({ user });
+  const checkIdUser = await User.findById(userID);
+  if(!checkIdUser){
+    return res.status(403).json({
+      Http_status: "Error",
+      Http_code: 403,
+      message: "Id user not correct",
+    });
+  }else{
+    return res.status(200).json({
+      Http_status: "Error",
+      Http_code: 200,
+      Data: checkIdUser,
+    });
+
+  }
+ 
+ 
 };
 
 const index = async (req, res, next) => {
@@ -42,6 +46,8 @@ const index = async (req, res, next) => {
 
 const CreatUser = async (req, res, next) => {
   try {
+
+
     const createUser = new User(req.value.body);
 
     await createUser.save();
@@ -79,12 +85,9 @@ const replaceUser = async (req, res, next) => {
   return res.json({ success: true });
 };
 
-
 const Signup = async (req, res, next) => {
   const { name, email, phone, password } = req.value.body;
-
   const foundUser = await User.findOne({ email });
-
   if (foundUser)
     return res.status(403).json({
       Http_status: "Error",

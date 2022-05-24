@@ -81,7 +81,8 @@ const schemas={
         year:Joi.string().min(2).required(),
         name_author:Joi.string().min(2).required(),
         translateBy:Joi.string().min(2).required(),
-        categories:Joi.array().min(1).required()
+        categories:Joi.array().min(1).required(),
+        views:Joi.string().min(1).required()
     }),
     comicUpdateSchema: Joi.object().keys({
         name_comic:Joi.string().min(2),

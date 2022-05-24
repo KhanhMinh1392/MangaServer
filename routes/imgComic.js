@@ -1,7 +1,7 @@
 const express = require('express')
 const router = express.Router()
 const imgcomicController = require('../controllers/imgcomicController');
-const middleware = require('../controllers/middlewareController');
+const middleware = require('../helpers/verifyToken');
 
 const {validateBody,validateParam,schemas}=require('../helpers/routerHelper')
 

@@ -1,7 +1,8 @@
 const Category = require('../model/categoryModel')
 const Comic = require('../model/comicModel')
 const express = require('express')
-const Joi = require('@hapi/joi')
+const Joi = require('@hapi/joi');
+const Statisic = require('../model/statisticModel');
 const app = express();
 
 const idSchema = Joi.object().keys({
@@ -21,18 +22,22 @@ const getcomicID = async(req,res,next)=>{
  
 const index = async (req,res,next)=>{
     try {
-     const comics = await Comic.find({})
+    const sort= req.query.sort 
+    
+     const comics = await Comic.find({}).sort(sort)
      return res.json({comics})
         
     } catch (error) {
         next(error)
-        
     }
  }
 
  const CreateComic = async(req,res,next)=>{
      try {
+         const st = new Statisic()
+         await st.save()
          const createComic = new Comic(req.value.body)
+         createComic.statisticId = st._id;
          await createComic.save()
          return res.json({
              http_status: "OK",
@@ -61,10 +66,7 @@ const updateComic = async(req,res,next)=>{
     const newComic = req.value.body
     const result = await Comic.findByIdAndUpdate(comicID, newComic)
     return res.json({success: true})
-
-
 }
-
 
  module.exports ={
      getcomicID,

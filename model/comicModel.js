@@ -14,6 +14,7 @@ const ComicSchema= new Schema({
     rating:{
         type:String
     },
+
     image:{
         type:String
     },
@@ -28,7 +29,9 @@ const ComicSchema= new Schema({
     },
     views: {
         type:Number,
-        default: 0
+    },
+    statisticId:{
+        type:Schema.Types.ObjectId
     },
     categories:[{
         type: Schema.Types.ObjectId,

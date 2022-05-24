@@ -46,35 +46,35 @@ const createLibrary = async (req, res, next) => {
 const updateLibrary = async (req, res, next) => {
   try {
     const { libraryID } = req.value.params;
-  const newLibrary = req.value.body;
+    const newLibrary = req.value.body;
 
-  const result = await Library.findByIdAndUpdate(
-    libraryID,
-    { $push: newLibrary },
-    {
-      new: true,
-      useFindAndModify: false,
-    }
-  );
-  return res.json({
-    http_status: "OK",
-    http_code: 200,
-    http_message: "Success",
-    result
-  });
-    
+    const result = await Library.findByIdAndUpdate(
+      libraryID,
+      { $push: newLibrary },
+      {
+        new: true,
+        useFindAndModify: false,
+      }
+    );
+    return res.json({
+      http_status: "OK",
+      http_code: 200,
+      http_message: "Success",
+      result
+    });
+
   } catch (error) {
     console.error(error);
-    
+
   }
-  
+
 };
 
 const deleteLibrary = async (req, res, next) => {
   try {
     const { libraryID } = req.value.params;
     const user = await Library.findByIdAndDelete(libraryID);
-    
+
     return res.json({
       http_status: "OK",
       http_code: 200,
@@ -91,14 +91,14 @@ const deteleComicLib = async (req, res, next) => {
     const { libraryID, comicId } = req.params;
     console.log(libraryID, comicId);
     const check = await Library.findByIdAndUpdate(libraryID, { $pull: { comic: comicId } })
-    if (check.comic.length ==0) {
+    if (check.comic.length == 0) {
       const deletelibrary = await Library.findByIdAndDelete(libraryID)
       return res.json({
         http_status: "OK",
         http_code: 200,
         http_message: "No data",
       });
-    } else{
+    } else {
       return res.json({
         http_status: "OK",
         http_code: 200,
@@ -114,7 +114,7 @@ const deteleComicLib = async (req, res, next) => {
       http_code: 403,
       http_message: "Error",
     });
-   
+
 
   }
 }

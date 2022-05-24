@@ -28,6 +28,7 @@ const tokenRouter = require('./routes/token')
 const chapterRouter = require('./routes/chapter')
 const imgcomicRouter = require('./routes/imgComic')
 const libraryRouter = require('./routes/library')
+const statisicRouter = require('./routes/statisic')
 
 // const  COURSES = [
 //   { id:1, name :'NODE JS'},
@@ -66,6 +67,7 @@ app.use('/token', tokenRouter)
 app.use('/chapter',chapterRouter)
 app.use('/img',imgcomicRouter)
 app.use('/library',libraryRouter)
+app.use('/statisic',statisicRouter)
 
 
 app.use((req, res, next) => {
