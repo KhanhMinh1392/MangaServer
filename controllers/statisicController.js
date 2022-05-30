@@ -54,8 +54,17 @@ const updateStatisicUser = async (req, res, next) => {
     }
 }
 
+const unLike = async (req,res,next) =>{
+    try {
+        const {statisicID,comidId} = req.params
+    } catch (error) {
+        
+    }
+}
+
 module.exports = {
     index,
     createStatisic,
-    updateStatisicUser
+    updateStatisicUser,
+    unLike
 }

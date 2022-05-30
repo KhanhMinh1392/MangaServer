@@ -12,13 +12,25 @@ const idSchema = Joi.object().keys({
 const getcomicID = async(req,res,next)=>{
     const validator= idSchema.validate(req.params)
     const {comicID} = req.value.params
-
     const comic = await Comic.findById(comicID).populate("categories","name_cate color")
-
     return res.json({comic})
 }
 
-
+const updateViews = async(req,res,next)=>{
+    const {comicID} = req.value.params
+    const viewsComic = await Comic.updateOne({
+        _id: comicID
+    },{
+        $inc:{
+            views: 1
+        }
+    })
+    return res.json({
+        http_status: "OK",
+        http_code: 200,
+        http_message: "Views have increased",
+       })
+}
  
 const index = async (req,res,next)=>{
     try {
@@ -45,20 +57,16 @@ const index = async (req,res,next)=>{
              http_message: "Success",
              comic : createComic
             })
-         
      } catch (error) {
-        next (error)
-         
+        next (error) 
      }
  }
 
- 
  const replaceComic = async(req,res,next)=>{
     const {comicID} = req.params
     const newComic = req.body
     const result = await Comic.findByIdAndUpdate(comicID, newComic)
     return res.json({success: true})
-
 }
 
 const updateComic = async(req,res,next)=>{
@@ -70,6 +78,7 @@ const updateComic = async(req,res,next)=>{
 
  module.exports ={
      getcomicID,
+     updateViews,
      index,
      CreateComic,
      replaceComic,
