@@ -11,13 +11,13 @@ const idSchema = Joi.object().keys({
 
 const getIDimg = async (req, res, next) => {
 
-    // const search = req.params.search;
-    // const idchater = await ImgComic.findOne({ search })
-    // return res.json({ data: idchater })
-    // const { id_chapter } = req.value.body
-    // let params =[];
-    // params.keyword = req.query.keyword
-    // const keyword = req.headers.keyword
+    try {
+        const id =req.query.id_chapter
+        const imgChapters = await ImgComic.find({id_chapter: id});
+        return res.json({ imgChapters });
+      } catch (error) {
+        next(error);
+      }
 
 }
 

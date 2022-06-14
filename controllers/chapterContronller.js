@@ -18,12 +18,21 @@ const getchapterID = async (req, res, next) => {
 
 const index = async (req, res, next) => {
   try {
-    const chapters = await Chapter.find({});
+    const id =req.query.id_comic
+    const chapters = await Chapter.find({id_comic: id});
     return res.json({ chapters });
   } catch (error) {
     next(error);
   }
 };
+const getAll = async(req,res,next)=>{
+  try {
+    const chapters = await Chapter.find({})
+    return res.json({ chapters });
+  } catch (error) {
+    next(error);
+  }
+}
 
 const CreatChapter = async (req, res, next) => {
   try {
@@ -37,8 +46,17 @@ const CreatChapter = async (req, res, next) => {
   }
 };
 
+const updateChapter = async (req, res, next) => {
+  const { chapterID } = req.params;
+  const newChapter = req.body;
+  const result = await Chapter.findByIdAndUpdate(chapterID, newChapter);
+  return res.json({ success: true });
+};
+
 module.exports = {
   getchapterID,
   index,
-  CreatChapter
+  getAll,
+  CreatChapter,
+  updateChapter
 }

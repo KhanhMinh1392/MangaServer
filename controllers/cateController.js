@@ -23,12 +23,23 @@ const getName = async (req, res, next) => {
     try {
         const name_cate = req.query.search;
         const category = await Category.findOne({ 'name_cate': name_cate }).populate('comic_type', 'name_comic image');
-        return res.json({
-            http_code: 200,
-            http_status: "OK",
-            message: "Success",
-            category
+        if(category){
+            return res.json({
+                http_code: 200,
+                http_status: "OK",
+                message: "Success",
+                category
+            })
+
+        }else{
+            return res.json({
+                http_code: 403,
+                http_status: "Error",
+                message: "No data"
+                
         })
+    }
+        
 
     } catch (error) {
         console.log(error.message);

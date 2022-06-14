@@ -9,6 +9,9 @@ const ChapterSchema= new Schema({
         type : Number,
         default:0
     },
+    number:{
+        type:Number
+    },
     id_comic:{
         type: Schema.Types.ObjectId,
     },
