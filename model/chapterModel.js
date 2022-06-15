@@ -9,7 +9,7 @@ const ChapterSchema= new Schema({
         type : Number,
         default:0
     },
-    number:{
+    index:{
         type:Number
     },
     id_comic:{

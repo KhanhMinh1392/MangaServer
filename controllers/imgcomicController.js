@@ -14,7 +14,23 @@ const getIDimg = async (req, res, next) => {
     try {
         const id =req.query.id_chapter
         const imgChapters = await ImgComic.find({id_chapter: id});
-        return res.json({ imgChapters });
+        if(imgChapters){
+            return res.json({
+                http_code: 200,
+                http_status: "OK",
+                imgChapters: imgChapters
+                
+        })
+        }
+        else{
+            return res.json({
+                http_code: 403,
+                http_status: "Error",
+                message: "No data"
+                
+        })
+        }
+       
       } catch (error) {
         next(error);
       }

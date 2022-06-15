@@ -8,6 +8,7 @@ router.get("/chapters",chapterContronller.getAll)
 router.post("/addChapters",validateBody(schemas.chapterSchema),chapterContronller.CreatChapter);
 router.get("/chapterID/:chapterID",validateParam(schemas.idSchema,'chapterID'),chapterContronller.getchapterID);
 router.patch("/updateChapter/:chapterID",chapterContronller.updateChapter);
+router.put("/replaceChapter/:chapterID",chapterContronller.replaceChapter);
 
 
 
