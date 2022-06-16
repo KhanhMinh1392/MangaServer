@@ -11,6 +11,7 @@ const imgComicSchema= new Schema({
     },
     id_chapter:{
         type: Schema.Types.ObjectId,
+        ref: "Chapter"
        
     }
     
