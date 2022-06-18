@@ -6,7 +6,12 @@ const validateBody = (schema,name)=>{
         const validatorResult= schema.validate(req.body)
 
         if(validatorResult.error){
-            return res.status(400).json(validatorResult.error)
+             return res.status(400).json(validatorResult.error.details)
+            // return res.json({
+            //     http_status: "error",
+            //     http_code: 400,
+            //     http_message: validatorResult.error.details
+            //   });
         } else{
               
             if(!req.value) req.value ={}
@@ -29,7 +34,8 @@ const validateParam =(schema,name)=>{
         console.log('result',validatorResult);
 
         if(validatorResult.error){
-            return res.status(400).json(validatorResult.error)
+             return res.status(400).json(validatorResult.error)
+         
 
         }else{
             
