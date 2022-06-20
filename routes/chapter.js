@@ -3,21 +3,24 @@ const router = express.Router();
 const {
   index,
   getAll,
-  getPreviousChapters,
+  getChapterDetail,
   CreatChapter,
   getchapterID,
   updateChapter,
   replaceChapter,
+  getImgChap
 } = require("../controllers/chapterContronller");
 const {
   validateBody,
   validateParam,
   schemas,
 } = require("../helpers/routerHelper");
+console.log(typeof getChapterDetail);
 
 router.get("/firstChapter", index);
 router.get("/chapters", getAll);
-router.get("/previousChapter", getPreviousChapters);
+router.get("/previousChapter", getChapterDetail);
+router.get("/imgChap",getImgChap)
 router.post("/addChapters", validateBody(schemas.chapterSchema), CreatChapter);
 router.get(
   "/chapterID/:chapterID",

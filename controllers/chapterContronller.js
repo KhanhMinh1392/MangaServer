@@ -20,47 +20,68 @@ exports.getchapterID = async (req, res, next) => {
 
 exports.index = async (req, res, next) => {
   try {
-    const id = req.query.id_comic;
-    const num = req.query.index;
+    const id_comic = req.query.id_comic;
+    const index = req.query.index;
 
-    return getChapterDetail(0)
+    return exports.getChapterDetail(0);
   } catch (error) {
     next(error);
   }
 };
-
-const getChapterDetail = async (index) => {
+exports.getChapterDetail = async (id_comic, index) => {
   try {
-    const id = req.query.id_comic;
-    const chapters = await Chapter.findOne({ id_comic: id, index: index });
+    const chapters = await Chapter.findOne({
+      id_comic: id_comic,
+      index: index,
+    });
+    // const chapters = await Chapter.findById({
+    //   id_comic: id_comic,
+    //   index: index,
+    // });
 
     if (chapters) {
       const nextChapters = await Chapter.findOne({
-        id_comic: id,
+        id_comic: id_comic,
         index: index + 1,
       });
+
+      // const nextChapters = await Chapter.findById({
+      //   id_comic: id_comic,
+      //   index: index + 1,
+      // });
 
       let previousChapter = null;
       if (index - 1 >= 0) {
         previousChapter = await Chapter.findOne({
-          id_comic: id,
+          id_comic: id_comic,
           index: index - 1,
         });
+        // previousChapter = await Chapter.findById({
+        //   id_comic: id_comic,
+        //   index: index - 1,
+        // });
       }
 
-      return {
+      return ({
         ...chapters._doc,
         nextChapters: nextChapters ? nextChapters._id || "" : "",
         previousChapter: previousChapter ? previousChapter._id || "" : "",
-      };
+      });
     } else {
       return {};
     }
   } catch (error) {
-    console.error(error)
+    console.error(error);
     return {};
-
   }
+};
+exports.getImgChap = async (req, res, next) => {
+  try {
+    const id = req.query.id_comic;
+    const index = req.query.index;
+    const chapters = await Chapter.findOne({ id_comic: id, index: 0 });
+    return res.json({ chapters });
+  } catch (error) {}
 };
 
 exports.getAll = async (req, res, next) => {

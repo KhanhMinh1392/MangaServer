@@ -1,3 +1,4 @@
+const number = require('@hapi/joi/lib/types/number')
 const mongoose = require('mongoose')
 const Schema = mongoose.Schema 
 
