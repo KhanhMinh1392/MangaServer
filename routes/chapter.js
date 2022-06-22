@@ -8,7 +8,8 @@ const {
   getchapterID,
   updateChapter,
   replaceChapter,
-  getImgChap
+  getNextChapter,
+  getImgChap,
 } = require("../controllers/chapterContronller");
 const {
   validateBody,
@@ -17,10 +18,11 @@ const {
 } = require("../helpers/routerHelper");
 console.log(typeof getChapterDetail);
 
-router.get("/firstChapter", index);
+// router.get("/nextChapter", getNextChapter);
+router.get("/getDetailChapter", index);
 router.get("/chapters", getAll);
 router.get("/previousChapter", getChapterDetail);
-router.get("/imgChap",getImgChap)
+router.get("/imgChap", getImgChap);
 router.post("/addChapters", validateBody(schemas.chapterSchema), CreatChapter);
 router.get(
   "/chapterID/:chapterID",

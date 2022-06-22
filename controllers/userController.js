@@ -25,9 +25,9 @@ const getID = async (req, res, next) => {
     });
   }else{
     return res.status(200).json({
-      Http_status: "Error",
+      Http_status: "Success",
       Http_code: 200,
-      Data: checkIdUser,
+      User: checkIdUser,
     });
 
   }

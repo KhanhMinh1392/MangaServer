@@ -2,7 +2,7 @@ const Chapter = require("../model/chapterModel");
 const Comic = require("../model/comicModel");
 const express = require("express");
 const Joi = require("@hapi/joi");
-const { findOne } = require("../model/chapterModel");
+// const { findOne } = require("../model/chapterModel");
 const app = express();
 const idSchema = Joi.object().keys({
   chapterID: Joi.string()
@@ -20,53 +20,82 @@ exports.getchapterID = async (req, res, next) => {
 
 exports.index = async (req, res, next) => {
   try {
-    const id_comic = req.query.id_comic;
+    const id = req.query.id_comic;
     const index = req.query.index;
+    console.log("id", id);
+    console.log("index", index);
 
-    return exports.getChapterDetail(0);
+    const result =  await exports.getChapterDetail(res,id, index)
+    return res.json({result})
+    
   } catch (error) {
     next(error);
   }
 };
-exports.getChapterDetail = async (id_comic, index) => {
+
+exports.getNextChapter = async(req,res,next)=>{
   try {
+    const id = req.query.id_comic;
+    const index = req.query.index;
+    console.log("id", id);
+    console.log("index", index);
+
+    const result =  await exports.getChapterDetail(res,id, index)
+    return res.json({result})
+    
+  } catch (error) {
+    
+  }
+}
+exports.getDetailNextChap = async(res,id,index)=>{
+  try {
+    const nextDetail = await Chapter.findOne({
+      id_comic:id,
+      index:index
+    })
+    return res.json({
+      nextDetail
+    })
+  } catch (error) {
+    
+  }
+}
+
+
+exports.getChapterDetail = async (res,id, index) => {
+  try {
+  
+    
     const chapters = await Chapter.findOne({
-      id_comic: id_comic,
+      id_comic: id,
       index: index,
+      // _id: '6245ba909ef85e573fd6f9b9'
     });
-    // const chapters = await Chapter.findById({
-    //   id_comic: id_comic,
-    //   index: index,
-    // });
+    console.log( index, "------", chapters);
+    const numIndex = Number(index)
 
     if (chapters) {
       const nextChapters = await Chapter.findOne({
-        id_comic: id_comic,
-        index: index + 1,
+        id_comic: id,
+        index: numIndex + 1,
       });
-
-      // const nextChapters = await Chapter.findById({
-      //   id_comic: id_comic,
-      //   index: index + 1,
-      // });
+      console.log("nextchapter:", nextChapters);
 
       let previousChapter = null;
       if (index - 1 >= 0) {
         previousChapter = await Chapter.findOne({
-          id_comic: id_comic,
-          index: index - 1,
+          id_comic: id,
+          index: numIndex - 1,
         });
-        // previousChapter = await Chapter.findById({
-        //   id_comic: id_comic,
-        //   index: index - 1,
-        // });
       }
+      console.log("previouschapters", previousChapter);
 
-      return ({
+      return {
+       
         ...chapters._doc,
         nextChapters: nextChapters ? nextChapters._id || "" : "",
         previousChapter: previousChapter ? previousChapter._id || "" : "",
-      });
+      };
     } else {
       return {};
     }
