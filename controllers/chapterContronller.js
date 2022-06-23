@@ -47,32 +47,31 @@ exports.getNextChapter = async(req,res,next)=>{
     
   }
 }
-exports.getDetailNextChap = async(res,id,index)=>{
-  try {
-    const nextDetail = await Chapter.findOne({
-      id_comic:id,
-      index:index
-    })
-    return res.json({
-      nextDetail
-    })
-  } catch (error) {
+// exports.getDetailNextChap = async(res,id,index)=>{
+//   try {
+//     const nextDetail = await Chapter.findOne({
+//       id_comic:id,
+//       index:index
+//     })
+//     return res.json({
+//       nextDetail
+//     })
+//   } catch (error) {
     
-  }
-}
+//   }
+// }
 
 
 exports.getChapterDetail = async (res,id, index) => {
   try {
-  
-    
+    const numIndex = Number(index)  
     const chapters = await Chapter.findOne({
       id_comic: id,
       index: index,
       // _id: '6245ba909ef85e573fd6f9b9'
     });
     console.log( index, "------", chapters);
-    const numIndex = Number(index)
+   
 
     if (chapters) {
       const nextChapters = await Chapter.findOne({

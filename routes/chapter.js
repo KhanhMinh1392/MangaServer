@@ -8,7 +8,7 @@ const {
   getchapterID,
   updateChapter,
   replaceChapter,
-  getNextChapter,
+  // getNextChapter,
   getImgChap,
 } = require("../controllers/chapterContronller");
 const {
