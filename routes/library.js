@@ -2,6 +2,8 @@ const express = require('express')
 const router = express.Router()
 const libraryController = require('../controllers/libraryController')
 const {validateBody,validateParam,schemas}=require('../helpers/routerHelper')
+const middleware = require('../helpers/verifyToken');
+
 
 router.get("/allLibrary",libraryController.index);
 

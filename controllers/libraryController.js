@@ -20,6 +20,14 @@ const index = async (req, res, next) => {
   }
 };
 
+const getID = async(req,res,next)=>{
+  try {
+    
+  } catch (error) {
+    
+  }
+}
+
 const createLibrary = async (req, res, next) => {
   try {
     const { id_user, comic } = req.value.body;
