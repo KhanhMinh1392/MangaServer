@@ -7,6 +7,8 @@ const middleware = require('../helpers/verifyToken');
 
 router.get("/allLibrary",libraryController.index);
 
+router.get("/getComicUser",libraryController.getIdUser)
+
 router.post("/addComicLib",validateBody(schemas.librarySchema),libraryController.createLibrary);
 
 router.patch("/updateLibrary/:libraryID",validateParam(schemas.idSchema,'libraryID'),validateBody(schemas.updateLibrarySchema),libraryController.updateLibrary);
