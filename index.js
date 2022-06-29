@@ -39,6 +39,7 @@ const chapterRouter = require("./routes/chapter");
 const imgcomicRouter = require("./routes/imgComic");
 const libraryRouter = require("./routes/library");
 const statisicRouter = require("./routes/statisic");
+const historyRouter = require("./routes/history")
 
 //
 // const  COURSES = [
@@ -78,6 +79,7 @@ app.use("/chapter", chapterRouter);
 app.use("/img", imgcomicRouter);
 app.use("/library", libraryRouter);
 app.use("/statisic", statisicRouter);
+app.use("/history",historyRouter)
 
 app.use((req, res, next) => {
   const err = new Error("Not Found");
