@@ -136,11 +136,11 @@ const schemas = {
   historyComicSchema: Joi.object().keys({
     id_user: Joi.string().regex(/^[0-9a-fA-F]{24}$/),
     id_comic: Joi.array().min(1),
-    id_chapter: Joi.string().regex(/^[0-9a-fA-F]{24}$/),
+    id_chapter: Joi.array().min(1),
   }),
   updateHistoryComicSchema: Joi.object().keys({
     id_comic: Joi.array().min(1),
-    id_chapter: Joi.string().regex(/^[0-9a-fA-F]{24}$/).min(1),
+    id_chapter: Joi.array().min(1),
   }),
 };
 

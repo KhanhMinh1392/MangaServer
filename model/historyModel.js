@@ -11,20 +11,19 @@ const historySchema = new Schema(
     // index: {
     //   type: Number,
     // },
-    id_comic: 
+    id_comic: [
       {
         type: String,
         ref: "Comic",
       },
-    
-    id_chapter: 
-     [ {
+    ],
+
+    id_chapter: [
+      {
         type: String,
         ref: "Chapter",
       },
-     ]
-    
-    
+    ],
   },
   { timestamps: true }
 );
