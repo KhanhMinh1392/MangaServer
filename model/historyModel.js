@@ -8,22 +8,16 @@ const historySchema = new Schema(
     id_user: {
       type: Schema.Types.ObjectId,
     },
-    // index: {
-    //   type: Number,
-    // },
-    id_comic: [
-      {
-        type: String,
-        ref: "Comic",
-      },
-    ],
 
-    id_chapter: [
-      {
-        type: String,
-        ref: "Chapter",
-      },
-    ],
+    id_comic: [{
+      type: String,
+      ref: "Comic",
+    }],
+
+    id_chapter: [{
+      type: String,
+      ref: "Chapter",
+    }],
   },
   { timestamps: true }
 );

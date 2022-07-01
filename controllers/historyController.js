@@ -19,6 +19,10 @@ exports.createHistory = async (req, res, next) => {
     const { id_user, id_comic, id_chapter } = req.body;
     const checkId = await History.findOne({ id_comic });
     if (checkId) {
+      // checkId.update(
+      //   { updatedAt: new Date().toISOString() },
+      //   { new: true, timestamps: true }
+      // );
       return res.status(403).json({
         Http_status: "Error",
         Http_code: 403,
@@ -81,21 +85,15 @@ exports.updateComicHistory = async (req, res, next) => {
 
 exports.getIdUserHistory = async (req, res, next) => {
   try {
-     const id_user = req.query.id_user;
+    const id_user = req.query.id_user;
     // const id_chapter = req.query.id_chapter
-    const historyIdUser = await History.findOne({
-       id_user: id_user,
-      
+    const historyIdUser = await History.find({
+      id_user: id_user,
     })
-      // .populate("id_comic", "_id name_comic image name_author")
-      // .populate("id_chapter", "name_chapter index");
+      .populate("id_comic", "_id name_comic image name_author")
+      .populate("id_chapter", "name_chapter index");
     if (historyIdUser) {
-      return res.json({
-        http_code: 200,
-        http_status: "OK",
-        message: "Success",
-        data: historyIdUser,
-      });
+      return res.json({ historyIdUser });
     } else {
       return res.json({
         http_code: 403,
@@ -103,6 +101,20 @@ exports.getIdUserHistory = async (req, res, next) => {
         message: "No data",
       });
     }
+  } catch (error) {
+    return res.status(500).json({
+      message: " server returned a 500 response",
+    });
+  }
+};
+exports.replaceHistoryChapter = async (req, res, next) => {
+  try {
+    const historyId = req.params;
+    const newChapter = req.body;
+    const result = await History.findByIdAndUpdate(historyId, newChapter);
+    console.log("-------", newChapter);
+    console.log("id_history", id_history);
+    return res.status(200).json({ success: true });
   } catch (error) {
     next(error);
   }
