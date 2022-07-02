@@ -9,6 +9,7 @@ router.get("/imgChapter/",imgcomicController.getIDimg)
 router.get("/imgComic",imgcomicController.index);
 router.post("/addimg",validateBody(schemas.imgcomicSchema),imgcomicController.CreateimgComic);
 router.patch("/imgComic/:imgcomicID",validateParam(schemas.idSchema,'imgcomicID'),validateBody(schemas.imgcomicUpdateSchema),imgcomicController.UpdateimgComic);
+router.put("/replaceImgComic/:imgcomicID",imgcomicController.replaceImgComic);
 
 
 module.exports = router

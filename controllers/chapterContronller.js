@@ -145,3 +145,22 @@ exports.replaceChapter = async (req, res, next) => {
   const result = await Chapter.findByIdAndUpdate(chapterID, newChapter);
   return res.json({ success: true });
 };
+
+exports.getIdComicChapter = async (req,res,next)=> {
+  const id_comic = req.query.id_comic
+  const listChapterComic = await Chapter.find({
+    id_comic : id_comic
+  })
+  if( listChapterComic){
+    return res.status(200).json({
+      http_status: "Success",
+      listChapterComic
+    });
+  }else{
+    return res.status(403).json({
+      http_status: "Success",
+      message: "No data"
+    });
+  }
+
+}

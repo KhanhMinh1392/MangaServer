@@ -17,21 +17,23 @@ exports.getAll = async (req, res, next) => {
 exports.createHistory = async (req, res, next) => {
   try {
     const { id_user, id_comic, id_chapter } = req.body;
-    const checkId = await History.findOne({ id_comic });
+    const checkId = await History.findOne({ id_comic, id_chapter });
     if (checkId) {
-      // checkId.update(
-      //   { updatedAt: new Date().toISOString() },
-      //   { new: true, timestamps: true }
-      // );
+      await History.updateOne({
+        timestamps: new Date(),
+        // id_comic:id_comic,
+        // id_chapter:id_chapter
+      });
       return res.status(403).json({
         Http_status: "Error",
         Http_code: 403,
         message: "Comic added",
       });
+    } else {
+      const newHistory = new History({ id_user, id_comic, id_chapter });
+      await newHistory.save();
+      return res.json({ history: newHistory });
     }
-    const newHistory = new History({ id_user, id_comic, id_chapter });
-    await newHistory.save();
-    return res.json({ history: newHistory });
   } catch (error) {
     next(error);
   }
@@ -90,6 +92,7 @@ exports.getIdUserHistory = async (req, res, next) => {
     const historyIdUser = await History.find({
       id_user: id_user,
     })
+      .sort({ createdAt: -1 })
       .populate("id_comic", "_id name_comic image name_author")
       .populate("id_chapter", "name_chapter index");
     if (historyIdUser) {
@@ -105,17 +108,5 @@ exports.getIdUserHistory = async (req, res, next) => {
     return res.status(500).json({
       message: " server returned a 500 response",
     });
-  }
-};
-exports.replaceHistoryChapter = async (req, res, next) => {
-  try {
-    const historyId = req.params;
-    const newChapter = req.body;
-    const result = await History.findByIdAndUpdate(historyId, newChapter);
-    console.log("-------", newChapter);
-    console.log("id_history", id_history);
-    return res.status(200).json({ success: true });
-  } catch (error) {
-    next(error);
   }
 };

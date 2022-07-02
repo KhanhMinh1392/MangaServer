@@ -18,6 +18,7 @@ const historySchema = new Schema(
       type: String,
       ref: "Chapter",
     }],
+  
   },
   { timestamps: true }
 );

@@ -10,6 +10,7 @@ const {
   replaceChapter,
   // getNextChapter,
   getImgChap,
+  getIdComicChapter,
 } = require("../controllers/chapterContronller");
 const {
   validateBody,
@@ -23,12 +24,13 @@ router.get("/getDetailChapter", index);
 router.get("/chapters", getAll);
 router.get("/previousChapter", getChapterDetail);
 router.get("/imgChap", getImgChap);
-router.post("/addChapters", validateBody(schemas.chapterSchema), CreatChapter);
+router.get("/idComiChapter", getIdComicChapter);
 router.get(
   "/chapterID/:chapterID",
   validateParam(schemas.idSchema, "chapterID"),
   getchapterID
 );
+router.post("/addChapters", validateBody(schemas.chapterSchema), CreatChapter);
 router.patch("/updateChapter/:chapterID", updateChapter);
 router.put("/replaceChapter/:chapterID", replaceChapter);
 

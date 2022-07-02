@@ -73,9 +73,16 @@ const UpdateimgComic = async (req, res, next) => {
   return res.json({ success: true });
 };
 
+const replaceImgComic = async (req, res, next) => {
+  const { imgcomicID } = req.params;
+  const newImg = req.body;
+  const result = await ImgComic.findByIdAndUpdate(imgcomicID, newImg);
+  return res.json({ success: true });
+};
 module.exports = {
   getIDimg,
   index,
   CreateimgComic,
   UpdateimgComic,
+  replaceImgComic
 };
