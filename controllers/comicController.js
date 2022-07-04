@@ -22,22 +22,30 @@ const getcomicID = async (req, res, next) => {
 };
 
 const updateViews = async (req, res, next) => {
-  const { comicID } = req.value.params;
-  const viewsComic = await Comic.updateOne(
-    {
-      _id: comicID,
-    },
-    {
-      $inc: {
-        views: 1,
+  try {
+    const { comicID } = req.value.params;
+    console.log(comicID);
+    const viewsComic = await Comic.updateOne(
+      {
+        _id: comicID,
       },
-    }
-  );
-  return res.json({
-    http_status: "OK",
-    http_code: 200,
-    http_message: "Views have increased",
-  });
+      {
+        $inc: {
+          views: 1,
+        },
+      }
+    );
+    return res.json({
+      http_status: "OK",
+      http_code: 200,
+      message: "Views have increased",
+    });
+  } catch (error) {
+    console.log(error);
+    return res.status(500).json({
+      message: " server returned a 500 response",
+    });
+  }
 };
 
 const fillterManga = async (req, res, next) => {
@@ -60,7 +68,10 @@ const fillterManga = async (req, res, next) => {
       });
     }
   } catch (error) {
-    console.log(error.message);
+    console.log(error);
+    return res.status(500).json({
+      message: " server returned a 500 response",
+    });
   }
 };
 
@@ -69,7 +80,10 @@ const index = async (req, res, next) => {
     const comics = await Comic.find({});
     return res.json({ comics });
   } catch (error) {
-    next(error);
+    console.log(error);
+    return res.status(500).json({
+      message: " server returned a 500 response",
+    });
   }
 };
 const sortComic = async (req, res, next) => {
@@ -77,11 +91,14 @@ const sortComic = async (req, res, next) => {
     // const sort = req.query.sort * 1 || '-views';
 
     const comics = await Comic.find({}).sort({
-            views: -1,
+      views: -1,
     });
     return res.json({ comics });
   } catch (error) {
-    next(error);
+    console.log(error);
+    return res.status(500).json({
+      message: " server returned a 500 response",
+    });
   }
 };
 
@@ -99,15 +116,25 @@ const CreateComic = async (req, res, next) => {
       comic: createComic,
     });
   } catch (error) {
-    next(error);
+    console.log(error);
+    return res.status(500).json({
+      message: " server returned a 500 response",
+    });
   }
 };
 
 const replaceComic = async (req, res, next) => {
-  const { comicID } = req.params;
-  const newComic = req.body;
-  const result = await Comic.findByIdAndUpdate(comicID, newComic);
-  return res.json({ success: true });
+  try {
+    const { comicID } = req.params;
+    const newComic = req.body;
+    const result = await Comic.findByIdAndUpdate(comicID, newComic);
+    return res.json({ success: true });
+  } catch (error) {
+    console.log(error);
+    return res.status(500).json({
+      message: " server returned a 500 response",
+    });
+  }
 };
 
 const updateComic = async (req, res, next) => {

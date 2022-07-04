@@ -21,7 +21,7 @@ exports.createHistory = async (req, res, next) => {
     if (checkId) {
       await History.updateOne({
         timestamps: new Date(),
-        // id_comic:id_comic,
+        //  id_comic:id_comic,
         // id_chapter:id_chapter
       });
       return res.status(403).json({
@@ -88,11 +88,12 @@ exports.updateComicHistory = async (req, res, next) => {
 exports.getIdUserHistory = async (req, res, next) => {
   try {
     const id_user = req.query.id_user;
-    // const id_chapter = req.query.id_chapter
+    const id_comic = req.query.id_comic;
     const historyIdUser = await History.find({
       id_user: id_user,
     })
-      .sort({ createdAt: -1 })
+      .sort({ updatedAt: -1 })
+      // .distinct("id_comic")
       .populate("id_comic", "_id name_comic image name_author")
       .populate("id_chapter", "name_chapter index");
     if (historyIdUser) {
